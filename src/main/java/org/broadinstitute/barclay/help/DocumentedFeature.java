@@ -23,12 +23,13 @@
 * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-package org.broadinstitute.gatk.utils.help;
+package org.broadinstitute.barclay.help;
 
 import java.lang.annotation.*;
 
 /**
- * An annotation to identify a class as a GATK capability for documentation
+ * An documentedFeatureObject to identify a class as a capability for documentation. Classes tagged with
+ * the annotation should have a no-arg constructor that can be called by the doc system.
  *
  * @author depristo
  */
@@ -36,13 +37,27 @@ import java.lang.annotation.*;
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface DocumentedGATKFeature {
-    /** Should we actually document this feature, even though it's annotated? */
+public @interface DocumentedFeature {
+    /**
+     * Should we actually document this feature, even though it's annotated?
+     */
     public boolean enable() default true;
-    /** The overall group name (walkers, readfilters) this feature is associated with */
+    /**
+     * The overall group name (walkers, readfilters) this feature is associated with
+     * @return The overall group name (walkers, readfilters) this feature is associated with
+     */
     public String groupName();
-    /** A human readable summary of the purpose of this group of features */
+
+    //TODO: this summary field should go away; it's used as the summary for the associated group listed in
+    // groupName, but it doesn't make any sense to have a per-instance group summary ??
+    /**
+     * A human readable summary of the purpose of this group of feature
+     * @return A human readable summary of the purpose of this group of feature
+     */
     public String summary() default "";
-    /** Are there links to other docs that we should include?  CommandLineGATK.class for walkers, for example? */
-    public Class[] extraDocs() default {};
+    /**
+     * Are there links to other docs that we should include?  Must reference a class that itself uses
+     * the DocumentedFeature documentedFeatureObject.
+     */
+    public Class<?>[] extraDocs() default {};
 }

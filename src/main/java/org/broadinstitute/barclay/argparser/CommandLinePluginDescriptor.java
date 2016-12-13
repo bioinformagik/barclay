@@ -158,9 +158,16 @@ public abstract class CommandLinePluginDescriptor<T> {
     public abstract void validateArguments() throws CommandLineException;
 
     /**
+     * @return the list of default plugins used for this instance of this descriptor. Used for help/doc generation.
+     */
+    public abstract List<Object> getDefaultInstances(); //TODO: Untyped objects!
+
+    /**
      * @return an ordered List of actual plugin instances that have been specified on the command
      * line, in the same order they were obtained/created by {@line #getInstance}).
      */
     public abstract List<T> getAllInstances();
+
+    public Class<?> getClassForInstance(final String pluginName) {return null; }
 
 }

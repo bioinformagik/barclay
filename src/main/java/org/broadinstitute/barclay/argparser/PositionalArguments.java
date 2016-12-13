@@ -8,10 +8,10 @@ import java.lang.annotation.Target;
 
 /**
  * Used to annotate which field of a CommandLineProgram should store parameters given at the 
- * command line which are not options. Fields with this annotation must be a Collection
+ * command line which are not options. Fields with this documentedFeatureObject must be a Collection
  * (and probably should be a List if order is important).
  * If a command line call looks like "cmd option=foo x=y bar baz" the values "bar" and "baz"
- * would be added to the collection with this annotation. The java type of the arguments
+ * would be added to the collection with this documentedFeatureObject. The java type of the arguments
  * will be inferred from the generic type of the collection. The type must be an enum or
  * have a constructor with a single String parameter.
  *

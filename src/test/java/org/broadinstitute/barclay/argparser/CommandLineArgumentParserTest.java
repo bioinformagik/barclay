@@ -967,7 +967,7 @@ public final class CommandLineArgumentParserTest {
         // Make sure actual gathered argument values match expected values
         List<Pair<String, String>> sortedActualGatheredArgumentValues = new ArrayList<>();
         for ( Pair<Field, GatherArgumentValuesTargetSuperType> gatheredArgument : gatheredArguments ) {
-            Assert.assertNotNull(gatheredArgument.getKey().getAnnotation(Argument.class), "Gathered argument is not annotated with an @Argument annotation");
+            Assert.assertNotNull(gatheredArgument.getKey().getAnnotation(Argument.class), "Gathered argument is not annotated with an @Argument documentedFeatureObject");
 
             String argumentName = gatheredArgument.getKey().getAnnotation(Argument.class).fullName();
             GatherArgumentValuesTargetSuperType argumentValue = gatheredArgument.getValue();
@@ -1026,10 +1026,10 @@ public final class CommandLineArgumentParserTest {
 
         Assert.assertEquals(gatheredArguments.size(), 2, "Wrong number of arguments gathered");
 
-        Assert.assertNotNull(gatheredArguments.get(0).getKey().getAnnotation(Argument.class), "Gathered argument is not annotated with an @Argument annotation");
+        Assert.assertNotNull(gatheredArguments.get(0).getKey().getAnnotation(Argument.class), "Gathered argument is not annotated with an @Argument documentedFeatureObject");
         Assert.assertEquals(gatheredArguments.get(0).getKey().getAnnotation(Argument.class).fullName(), "parameterizedTypeArgument", "Wrong argument gathered");
         Assert.assertEquals(gatheredArguments.get(0).getValue().getValue(), "parameterizedTypeArgumentValue", "Wrong value for gathered argument");
-        Assert.assertNotNull(gatheredArguments.get(1).getKey().getAnnotation(Argument.class), "Gathered argument is not annotated with an @Argument annotation");
+        Assert.assertNotNull(gatheredArguments.get(1).getKey().getAnnotation(Argument.class), "Gathered argument is not annotated with an @Argument documentedFeatureObject");
         Assert.assertEquals(gatheredArguments.get(1).getKey().getAnnotation(Argument.class).fullName(), "parameterizedTypeListArgument", "Wrong argument gathered");
         Assert.assertEquals(gatheredArguments.get(1).getValue().getValue(), "parameterizedTypeListArgumentValue", "Wrong value for gathered argument");
     }

@@ -1,6 +1,6 @@
 /*
 * Copyright 2012-2016 Broad Institute, Inc.
-* 
+*
 * Permission is hereby granted, free of charge, to any person
 * obtaining a copy of this software and associated documentation
 * files (the "Software"), to deal in the Software without
@@ -9,10 +9,10 @@
 * copies of the Software, and to permit persons to whom the
 * Software is furnished to do so, subject to the following
 * conditions:
-* 
+*
 * The above copyright notice and this permission notice shall be
 * included in all copies or substantial portions of the Software.
-* 
+*
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
 * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
 * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
@@ -23,23 +23,27 @@
 * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-package org.broadinstitute.gatk.utils.help;
+package org.broadinstitute.barclay.help;
+
+// TODO: Change the name of this class after the PR is reviewed
 
 /**
- * Documentation unit.  Effectively a class version of the DocumentedGATKFeature.
- * Immutable data structure.
+ * Documentation unit.  Effectively a class version of the DocumentedFeature.
  *
  * @author depristo
  */
-class DocumentedGATKFeatureObject {
-    /** Which class are we documenting.  Specific to each class being documented */
-    private final Class classToDoc;
-    /** Are we enabled? */
+ public class DocumentedFeatureObject extends Object {
+    private final Class<?> classToDoc; //class are we documenting
     private final boolean enable;
     private final String groupName, summary;
-    private final Class[] extraDocs;
+    private final Class<?>[] extraDocs;
 
-    public DocumentedGATKFeatureObject(Class classToDoc, final boolean enable, final String groupName, final String summary, final Class[] extraDocs) {
+    public DocumentedFeatureObject(
+            final Class<?> classToDoc,
+            final boolean enable,
+            final String groupName,
+            final String summary,
+            final Class<?>[] extraDocs) {
         this.classToDoc = classToDoc;
         this.enable = enable;
         this.groupName = groupName;
@@ -47,13 +51,9 @@ class DocumentedGATKFeatureObject {
         this.extraDocs = extraDocs;
     }
 
-    public DocumentedGATKFeatureObject(Class classToDoc, final String groupName, final String summary) {
-        this(classToDoc, true, groupName, summary, new Class[]{});
-    }
-
-    public Class getClassToDoc() { return classToDoc; }
+    public Class<?> getClassToDoc() { return classToDoc; }
     public boolean enable() { return enable; }
     public String groupName() { return groupName; }
     public String summary() { return summary; }
-    public Class[] extraDocs() { return extraDocs; }
+    public Class<?>[] extraDocs() { return extraDocs; }
 }

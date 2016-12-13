@@ -15,7 +15,7 @@ import java.util.zip.ZipFile;
 
 /**
  * Utility class that can scan for classes in the classpath and find all the ones
- * annotated with a particular annotation.
+ * annotated with a particular documentedFeatureObject.
  *
  * @author Tim Fennell
  */
@@ -135,7 +135,7 @@ public final class ClassFinder {
 
     /**
      * Checks an item to see if it is a class and is annotated with the specified
-     * annotation.  If so, adds it to the set, otherwise ignores it.
+     * documentedFeatureObject.  If so, adds it to the set, otherwise ignores it.
      * @param name the path equivelant to the package + class/item name
      */
     protected void handleItem(final String name) {

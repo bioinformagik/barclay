@@ -97,9 +97,45 @@ public @interface Argument {
     int maxElements() default Integer.MAX_VALUE;
 
     /**
-     * This boolean determines if this annotation overrides a parent annotation. If that is the case then
-     * the options of the parent annotation are overridden with this annotation.
+     * This boolean determines if this documentedFeatureObject overrides a parent documentedFeatureObject. If that is the case then
+     * the options of the parent documentedFeatureObject are overridden with this documentedFeatureObject.
      */
     boolean overridable() default false;
+
+    /**
+     * Hard lower bound on the allowed value for the annotated argument -- generates an exception if violated.
+     * Enforced only for numeric types whose values are explicitly specified on the command line.
+     *
+     * @return Hard lower bound on the allowed value for the annotated argument, or Double.NEGATIVE_INFINITY
+     *         if there is none.
+     */
+    double minValue() default Double.NEGATIVE_INFINITY;
+
+    /**
+     * Hard upper bound on the allowed value for the annotated argument -- generates an exception if violated.
+     * Enforced only for numeric types whose values are explicitly specified on the command line.
+     *
+     * @return Hard upper bound on the allowed value for the annotated argument, or Double.POSITIVE_INFINITY
+     *         if there is none.
+     */
+    double maxValue() default Double.POSITIVE_INFINITY;
+
+    /**
+     * Soft lower bound on the allowed value for the annotated argument -- generates a warning if violated.
+     * Enforced only for numeric types whose values are explicitly specified on the command line.
+     *
+     * @return Soft lower bound on the allowed value for the annotated argument, or Double.NEGATIVE_INFINITY
+     *         if there is none.
+     */
+    double minRecommendedValue() default Double.NEGATIVE_INFINITY;
+
+    /**
+     * Soft upper bound on the allowed value for the annotated argument -- generates a warning if violated.
+     * Enforced only for numeric types whose values are explicitly specified on the command line.
+     *
+     * @return Soft upper bound on the allowed value for the annotated argument, or Double.POSITIVE_INFINITY
+     *         if there is none.
+     */
+    double maxRecommendedValue() default Double.POSITIVE_INFINITY;
 
 }

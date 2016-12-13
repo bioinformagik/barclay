@@ -23,12 +23,12 @@
 * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-package org.broadinstitute.gatk.utils.help;
+package org.broadinstitute.barclay.help;
 
 import com.sun.javadoc.FieldDoc;
 import com.sun.javadoc.PackageDoc;
 import com.sun.javadoc.ProgramElementDoc;
-import org.broadinstitute.gatk.utils.classloader.JVMUtils;
+import org.broadinstitute.barclay.utils.JVMUtils;
 
 import java.lang.reflect.Field;
 
@@ -38,23 +38,13 @@ import java.lang.reflect.Field;
  */
 public class DocletUtils {
 
-    protected static boolean assignableToClass(ProgramElementDoc classDoc, Class lhsClass, boolean requireConcrete) {
-        try {
-            Class type = getClassForDoc(classDoc);
-            return lhsClass.isAssignableFrom(type) && (!requireConcrete || JVMUtils.isConcrete(type));
-        } catch (Throwable t) {
-            // Ignore errors.
-            return false;
-        }
-    }
-
-    protected static Class getClassForDoc(ProgramElementDoc doc) throws ClassNotFoundException {
+    protected static Class<?> getClassForDoc(ProgramElementDoc doc) throws ClassNotFoundException {
         return Class.forName(getClassName(doc, true));
     }
 
     protected static Field getFieldForFieldDoc(FieldDoc fieldDoc) {
         try {
-            Class clazz = getClassForDoc(fieldDoc.containingClass());
+            Class<?> clazz = getClassForDoc(fieldDoc.containingClass());
             return JVMUtils.findField(clazz, fieldDoc.name());
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);

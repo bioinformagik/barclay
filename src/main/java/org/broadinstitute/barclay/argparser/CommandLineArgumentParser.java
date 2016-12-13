@@ -43,11 +43,11 @@ import java.util.stream.Stream;
  * or the type of the List element must either have a ctor T(String), or must be an Enum.  List arguments must
  * be initialized by the caller with some kind of list.  Any other argument that is non-null is assumed to have the given
  * value as a default.  If an argument has no default value, and does not have the optional attribute of @Argument set,
- * is required.  For List arguments, minimum and maximum number of elements may be specified in the @Argument annotation.
+ * is required.  For List arguments, minimum and maximum number of elements may be specified in the @Argument documentedFeatureObject.
  * <p/>
  * A single List data member may be annotated with the @PositionalArguments.  This behaves similarly to a Argument
  * with List data member: the caller must initialize the data member, the type must be constructable from String, and
- * min and max number of elements may be specified.  If no @PositionalArguments annotation appears in the object,
+ * min and max number of elements may be specified.  If no @PositionalArguments documentedFeatureObject appears in the object,
  * then it is an error for the command line to contain positional arguments.
  * <p/>
  * A single String public data member may be annotated with @Usage.  This string, if present, is used to
@@ -62,7 +62,7 @@ public final class CommandLineArgumentParser implements CommandLineParser {
     private static final String ENUM_OPTION_DOC_PREFIX = "Possible values: {";
     private static final String ENUM_OPTION_DOC_SUFFIX = "} ";
 
-    // Use these if no @Usage annotation
+    // Use these if no @Usage documentedFeatureObject
     private static final String defaultUsagePreamble = "Usage: program [arguments...]\n";
     private static final String defaultUsagePreambleWithPositionalArguments =
             "Usage: program [arguments...] [positional-arguments...]\n";
@@ -113,14 +113,17 @@ public final class CommandLineArgumentParser implements CommandLineParser {
     private final Object callerArguments;
 
 
-    // null if no @PositionalArguments annotation
+    // null if no @PositionalArguments documentedFeatureObject
     private Field positionalArguments;
     private int minPositionalArguments;
     private int maxPositionalArguments;
     private Object positionalArgumentsParent;
 
-    // List of all the data members with @Argument annotation
+    // List of all the data members with @Argument documentedFeatureObject
     private List<ArgumentDefinition> argumentDefinitions = new ArrayList<>();
+
+    public List<ArgumentDefinition> getArgumentDefinitions() { return argumentDefinitions; }
+    public Field getPositionalArguments() { return positionalArguments; }
 
     // Maps long name, and short name, if present, to an argument definition that is
     // also in the argumentDefinitions list.
@@ -130,7 +133,7 @@ public final class CommandLineArgumentParser implements CommandLineParser {
     private String[] argv;
 
 
-    // The associated program properties using the CommandLineProgramProperties annotation
+    // The associated program properties using the CommandLineProgramProperties documentedFeatureObject
     private final CommandLineProgramProperties programProperties;
 
     private String getUsagePreamble() {
@@ -935,22 +938,22 @@ public final class CommandLineArgumentParser implements CommandLineParser {
         }
     }
 
-    protected static class ArgumentDefinition {
-        final Field field;
+    public static class ArgumentDefinition {
+        public final Field field;
         final String fieldName;
-        final String fullName;
-        final String shortName;
-        final String doc;
-        final boolean optional;
+        public final String fullName;
+        public final String shortName;
+        public final String doc;
+        public final boolean optional;
         final boolean isCollection;
-        final String defaultValue;
-        final boolean isCommon;
+        public final String defaultValue;
+        public final boolean isCommon;
         boolean hasBeenSet = false;
-        final Set<String> mutuallyExclusive;
-        final Object parent;
+        public final Set<String> mutuallyExclusive;
+        public final Object parent;
         final boolean isSpecial;
         final boolean isSensitive;
-        final CommandLinePluginDescriptor<?> controllingDescriptor;
+        public final CommandLinePluginDescriptor<?> controllingDescriptor;
 
         public ArgumentDefinition(
                 final Field field,
@@ -1016,7 +1019,7 @@ public final class CommandLineArgumentParser implements CommandLineParser {
         }
 
         /**
-         * Determine if this argument definition is controlled by a plugin descriptor (and thus subject to
+         * Determine if this argument definition is controlled by a plugin (and thus subject to
          * descriptor dependency validation).
          * @return
          */

@@ -23,7 +23,7 @@
 * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-package org.broadinstitute.gatk.utils.help;
+package org.broadinstitute.barclay.help;
 
 import java.util.List;
 import java.util.Map;
@@ -44,24 +44,22 @@ public class GSONArgument {
     String maxValue;
     String minRecValue;
     String maxRecValue;
-    String rodTypes;
     String kind;
     List<Map<String, Object>> options;
 
-    public void populate(   String summary,
-                            String name,
-                            String synonyms,
-                            String type,
-                            String required,
-                            String fulltext,
-                            String defaultValue,
-                            String minValue,
-                            String maxValue,
-                            String minRecValue,
-                            String maxRecValue,
-                            String rodTypes,
-                            String kind,
-                            List<Map<String, Object>> options
+    public void populate(   final String summary,
+                            final String name,
+                            final String synonyms,
+                            final String type,
+                            final String required,
+                            final String fulltext,
+                            final String defaultValue,
+                            final String minValue,
+                            final String maxValue,
+                            final String minRecValue,
+                            final String maxRecValue,
+                            final String kind,
+                            final List<Map<String, Object>> options
     ) {
         this.summary = summary;
         this.name = name;
@@ -74,10 +72,8 @@ public class GSONArgument {
         this.maxValue = maxValue;
         this.minRecValue = minRecValue;
         this.maxRecValue = maxRecValue;
-        this.rodTypes = rodTypes;
         this.kind = kind;
         this.options = options;
     }
-
 
 }

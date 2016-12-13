@@ -23,7 +23,7 @@
 * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-package org.broadinstitute.gatk.utils.help;
+package org.broadinstitute.barclay.help;
 
 import com.sun.javadoc.ClassDoc;
 
@@ -31,55 +31,65 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Simple collection of all relevant information about something the GATKDoclet can document
- * <p/>
+ * Simple collection of all relevant information about something the HelpDoclet can document
+ *
  * Created by IntelliJ IDEA.
  * User: depristo
  * Date: 7/24/11
  * Time: 7:59 PM
  */
-class GATKDocWorkUnit implements Comparable<GATKDocWorkUnit> {
+public class DocWorkUnit implements Comparable<DocWorkUnit> {
     /**
      * The class that's being documented
      */
-    final Class clazz;
+    protected final Class<?> clazz;
     /**
      * The name of the thing we are documenting
      */
-    final String name;
+    protected final String name;
     /**
      * the filename where we will be writing the docs for this class
      */
-    final String filename;
+    protected final String filename;
     /**
      * The name of the documentation group (e.g., walkers, read filters) class belongs to
      */
-    final String group;
+    protected final String group;
     /**
      * The documentation handler for this class
      */
-    final DocumentedGATKFeatureHandler handler;
+    protected final DocumentedFeatureHandler handler;
     /**
      * The javadoc documentation for clazz
      */
-    final ClassDoc classDoc;
+    protected final ClassDoc classDoc;
     /**
-     * The annotation that lead to this Class being in GATKDoc
+     * The documentedFeatureObject that lead to this Class being in Doc
      */
-    final DocumentedGATKFeatureObject annotation;
+    protected final DocumentedFeatureObject documentedFeatureObject;
     /**
      * When was this walker built, and what's the absolute version number
      */
-    final String buildTimestamp, absoluteVersion;
+    protected final String buildTimestamp;
+    protected final String absoluteVersion;
 
     // set by the handler
-    String summary;
-    Map<String, Object> forTemplate; // this is where the actual doc content gets stored
+    protected String summary;
 
-    public GATKDocWorkUnit(String name, String filename, String group, DocumentedGATKFeatureObject annotation,
-                           DocumentedGATKFeatureHandler handler, ClassDoc classDoc, Class clazz,
-                           String buildTimestamp, String absoluteVersion) {
-        this.annotation = annotation;
+    // needs to be accessible from DocWorkUnits in specialized doc subclasses
+    public Map<String, Object> rootMap; // this is where the actual doc content gets stored
+
+    public DocWorkUnit(
+            final String name,
+            final String filename,
+            final String group,
+            final DocumentedFeatureObject annotation,
+            final DocumentedFeatureHandler handler,
+            final ClassDoc classDoc,
+            final Class<?> clazz,
+            final String buildTimestamp,
+            final String absoluteVersion) {
+        this.documentedFeatureObject = annotation;
         this.name = name;
         this.filename = filename;
         this.group = group;
@@ -91,14 +101,14 @@ class GATKDocWorkUnit implements Comparable<GATKDocWorkUnit> {
     }
 
     /**
-     * Called by the GATKDoclet to set handler provided context for this work unit
+     * Called by the Doclet to set handler provided context for this work unit
      *
      * @param summary
-     * @param forTemplate
+     * @param rootMap
      */
-    public void setHandlerContent(String summary, Map<String, Object> forTemplate) {
+    public void setHandlerContent(final String summary, final Map<String, Object> rootMap) {
         this.summary = summary;
-        this.forTemplate = forTemplate;
+        this.rootMap = rootMap;
     }
 
     /**
@@ -121,7 +131,7 @@ class GATKDocWorkUnit implements Comparable<GATKDocWorkUnit> {
      * @param other
      * @return
      */
-    public int compareTo(GATKDocWorkUnit other) {
+    public int compareTo(DocWorkUnit other) {
         return this.name.compareTo(other.name);
     }
 }

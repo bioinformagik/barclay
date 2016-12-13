@@ -23,7 +23,7 @@
 * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-package org.broadinstitute.gatk.utils.help;
+package org.broadinstitute.barclay.help;
 
 import com.sun.javadoc.ClassDoc;
 import com.sun.javadoc.RootDoc;
@@ -32,10 +32,10 @@ import java.io.*;
 import java.util.Set;
 
 /**
- * Extend this class to provide a documentation handler for GATKdocs
+ * Extend this class to provide a documentation handler for docs
  */
-public abstract class DocumentedGATKFeatureHandler {
-    private GATKDoclet doclet;
+public abstract class DocumentedFeatureHandler {
+    private HelpDoclet doclet;
 
     /**
      * @return the javadoc RootDoc of this javadoc run
@@ -45,14 +45,14 @@ public abstract class DocumentedGATKFeatureHandler {
     }
 
     /** Set the master doclet driving this handler */
-    public void setDoclet(GATKDoclet doclet) {
+    public void setDoclet(HelpDoclet doclet) {
         this.doclet = doclet;
     }
 
     /**
-     * @return the GATKDoclet driving this documentation run
+     * @return the HelpDoclet driving this documentation run
      */
-    public GATKDoclet getDoclet() {
+    public HelpDoclet getDoclet() {
         return doclet;
     }
 
@@ -71,14 +71,14 @@ public abstract class DocumentedGATKFeatureHandler {
      * @param clazz
      * @return
      */
-    public String getDestinationFilename(ClassDoc doc, Class clazz) {
-        return GATKDocUtils.phpFilenameForClass(clazz, GATKDoclet.outputFileExtension);
+    public String getDestinationFilename(ClassDoc doc, Class<?> clazz) {
+        return DocUtils.phpFilenameForClass(clazz, HelpDoclet.outputFileExtension);
     }
 
     /**
      * Return the name of the FreeMarker template we will use to process ClassDoc doc.
      *
-     * Note this is a flat filename relative to settings/helpTemplates in the GATK source tree
+     * Note this is a flat filename relative to settings/helpTemplates in the source tree
      * @param doc
      * @return
      * @throws IOException
@@ -95,5 +95,5 @@ public abstract class DocumentedGATKFeatureHandler {
      *
      * @param toProcess
      */
-    public abstract void processOne(GATKDocWorkUnit toProcess);
+    public abstract void processOne(DocWorkUnit toProcess);
 }

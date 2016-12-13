@@ -16,23 +16,32 @@ public class CommandLinePluginUnitTest {
     }
 
     public static class TestPluginWithOptionalArg extends TestPluginBase {
-        public static final String optionalArgName = "optionalStringArg";
+        public static final String optionalArgName = "optionalStringArgForPlugin";
 
-        @Argument(fullName=optionalArgName, optional=true)
+        @Argument(fullName=optionalArgName,
+                optional=true)
         String optionalArg;
     }
 
     public static class TestPluginWithRequiredArg extends TestPluginBase {
-        public static final String requiredArgName = "requiredStringArg";
+        public static final String requiredArgName = "requiredStringArgForPlugin";
 
         @Argument(fullName=requiredArgName, optional=false)
         String requiredArg;
     }
 
     public static class TestPlugin extends TestPluginBase {
-        final static String argumentName = "argumentForTestPlugin";
-        @Argument(fullName = argumentName, optional=true)
+        final static String argumentName = "optionalIntegerArgForPlugin";
+        @Argument(fullName = argumentName,
+                shortName="optionalStringShortName",
+                optional=true)
         Integer argumentForTestPlugin;
+    }
+
+    public static class TestDefaultPlugin extends TestPluginBase {
+        final static String argumentName = "optionalIntegerArgForTestDefaultPlugin";
+        @Argument(fullName = argumentName, optional=true)
+        Integer argumentForDefaultTestPlugin;
     }
 
     public static class TestPluginDescriptor extends CommandLinePluginDescriptor<TestPluginBase> {
@@ -45,11 +54,17 @@ public class CommandLinePluginUnitTest {
         @Argument(fullName = testPluginArgumentName, optional=true)
         public final List<String> userPluginNames = new ArrayList<>(); // preserve order
 
+        private List<TestPluginBase> defaultPlugins = new ArrayList<>();
+
         // Map of plugin (simple) class names to the corresponding discovered plugin instance
         private Map<String, TestPluginBase> testPlugins = new HashMap<>();
 
         // Set of dependent args for which we've seen values (requires predecessor)
         private Set<String> requiredPredecessors = new HashSet<>();
+
+        public TestPluginDescriptor(final List<TestPluginBase> defaultPlugins) {
+            this.defaultPlugins = defaultPlugins;
+        }
 
         /////////////////////////////////////////////////////////
         // TestCommandLinePluginDescriptor implementation methods
@@ -115,6 +130,16 @@ public class CommandLinePluginUnitTest {
                 requiredPredecessors.add(predecessorName);
             }
             return isAllowed;
+        }
+
+        /**
+         * Get the list of default plugins that were passed to this instance.
+         * @return
+         */
+        public List<Object> getDefaultInstances() {
+            ArrayList<Object> defaultList = new ArrayList<>(defaultPlugins.size());
+            defaultList.addAll(defaultPlugins);
+            return defaultList;
         }
 
         /**
@@ -185,7 +210,7 @@ public class CommandLinePluginUnitTest {
         PlugInTestObject plugInTest = new PlugInTestObject();
         final CommandLineArgumentParser clp = new CommandLineArgumentParser(
                 plugInTest,
-                Collections.singletonList(new TestPluginDescriptor()));
+                Collections.singletonList(new TestPluginDescriptor(Collections.singletonList(new TestDefaultPlugin()))));
 
         Assert.assertTrue(clp.parseArguments(System.err, args));
 
@@ -202,7 +227,7 @@ public class CommandLinePluginUnitTest {
         PlugInTestObject plugInTest = new PlugInTestObject();
         final CommandLineArgumentParser clp = new CommandLineArgumentParser(
                 plugInTest,
-                Collections.singletonList(new TestPluginDescriptor()));
+                Collections.singletonList(new TestPluginDescriptor(Collections.singletonList(new TestDefaultPlugin()))));
         final String out = CommandLineArgumentParserTest.captureStderr(() -> clp.usage(System.err, true)); // with common args
 
         TestPluginDescriptor pid = clp.getPluginDescriptor(TestPluginDescriptor.class);
@@ -231,7 +256,7 @@ public class CommandLinePluginUnitTest {
             final String argValue)  //unused
     {
         CommandLineParser clp = new CommandLineArgumentParser(new Object(),
-                Collections.singletonList(new TestPluginDescriptor()));
+                Collections.singletonList(new TestPluginDescriptor(Collections.singletonList(new TestDefaultPlugin()))));
         String[] args = {
                 "--" + TestPluginDescriptor.testPluginArgumentName, plugin  // no args, just enable plugin
         };
@@ -255,7 +280,7 @@ public class CommandLinePluginUnitTest {
             final String argValue)
     {
         CommandLineParser clp = new CommandLineArgumentParser(new Object(),
-                Collections.singletonList(new TestPluginDescriptor()));
+                Collections.singletonList(new TestPluginDescriptor(Collections.singletonList(new TestDefaultPlugin()))));
 
         String[] args = { argName, argValue }; // plugin args are specified but no plugin actually specified
 
@@ -265,7 +290,7 @@ public class CommandLinePluginUnitTest {
     @Test
     public void testNoPluginsSpecified() {
         CommandLineParser clp = new CommandLineArgumentParser(new Object(),
-                Collections.singletonList(new TestPluginDescriptor()));
+                Collections.singletonList(new TestPluginDescriptor(Collections.singletonList(new TestDefaultPlugin()))));
         clp.parseArguments(System.out, new String[]{});
 
         // get the command line read plugins
@@ -277,7 +302,7 @@ public class CommandLinePluginUnitTest {
     @Test
     public void testEnableMultiplePlugins() {
         CommandLineParser clp = new CommandLineArgumentParser(new Object(),
-                Collections.singletonList(new TestPluginDescriptor()));
+                Collections.singletonList(new TestPluginDescriptor(Collections.singletonList(new TestDefaultPlugin()))));
         String[] args = {
                 "--" + TestPluginDescriptor.testPluginArgumentName, TestPluginWithRequiredArg.class.getSimpleName(),
                 "--" + TestPluginWithRequiredArg.requiredArgName, "fake",
@@ -297,7 +322,7 @@ public class CommandLinePluginUnitTest {
     @Test(expectedExceptions = CommandLineException.class)
     public void testEnableNonExistentPlugin() {
         CommandLineParser clp = new CommandLineArgumentParser(new Object(),
-                Collections.singletonList(new TestPluginDescriptor()));
+                Collections.singletonList(new TestPluginDescriptor(Collections.singletonList(new TestDefaultPlugin()))));
         clp.parseArguments(System.out, new String[] {"--" + TestPluginDescriptor.testPluginArgumentName, "nonExistentPlugin"});
     }
 
@@ -392,6 +417,13 @@ public class CommandLinePluginUnitTest {
             // now validate that each plugin specified is valid (has a corresponding instance)
             Assert.assertEquals(pluginNames.size(), pluginInstances.size());
         }
+
+        /**
+         * Get the list of default plugins that were passed to this instance.
+         * @return
+         */
+        @Override
+        public List<Object> getDefaultInstances() { return null; }
 
         @Override
         public List<TestPluginArgCollisionBase> getAllInstances() {

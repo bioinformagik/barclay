@@ -23,13 +23,9 @@
 * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-package org.broadinstitute.gatk.utils.help;
+package org.broadinstitute.barclay.help;
 
-public class GATKDocUtils {
-    /**
-     * The URL root for RELEASED GATKDOC units
-     */
-    public final static String URL_ROOT_FOR_RELEASE_GATKDOCS = HelpConstants.GATK_DOCS_URL;
+public class DocUtils {
 
     /**
      * Return the filename of the GATKDoc PHP that would be generated for Class.  This
@@ -41,25 +37,12 @@ public class GATKDocUtils {
      * @param c
      * @return
      */
-    public static String phpFilenameForClass(Class c) {
+    public static String phpFilenameForClass(Class<?> c) {
         return phpFilenameForClass(c, "php");
     }
 
-    public static String phpFilenameForClass(Class c, String extension) {
+    public static String phpFilenameForClass(Class<?> c, String extension) {
         return c.getName().replace(".", "_") + "." + extension;
     }
 
-    /**
-     * Returns a full URL http://etc/ linking to the documentation for class (assuming it
-     * exists).  Currently points to the RELEASE doc path only.
-     *
-     * @param c
-     * @return
-     */
-    public static String helpLinksToGATKDocs(Class c) {
-        String classPath = phpFilenameForClass(c);
-        StringBuilder b = new StringBuilder();
-        b.append(URL_ROOT_FOR_RELEASE_GATKDOCS).append(classPath);
-        return b.toString();
-    }
 }
