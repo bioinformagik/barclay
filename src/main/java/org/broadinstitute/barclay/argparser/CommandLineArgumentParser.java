@@ -89,6 +89,8 @@ public final class CommandLineArgumentParser implements CommandLineParser {
 
     private final Set<String> argumentsFilesLoadedAlready = new LinkedHashSet<>();
 
+    private final List<ValidatableArgumentCollection> validatableArgumentCollections = new ArrayList<>();
+
     /**
      * A typical command line program will call this to get the beginning of the usage message,
      * and then append a description of the program, like this:
@@ -196,6 +198,10 @@ public final class CommandLineArgumentParser implements CommandLineParser {
                 try {
                     field.setAccessible(true);
                     createArgumentDefinitions(field.get(callerArguments), controllingDescriptor);
+                    // if it is validatable argument collection, add it to the validation
+                    if (ValidatableArgumentCollection.class.isAssignableFrom(field.getType())) {
+                        validatableArgumentCollections.add((ValidatableArgumentCollection) field.get(callerArguments));
+                    }
                 } catch (final IllegalAccessException e) {
                     throw new CommandLineException.ShouldNeverReachHereException("should never reach here because we setAccessible(true)", e);
                 }
@@ -483,7 +489,8 @@ public final class CommandLineArgumentParser implements CommandLineParser {
         } catch (final IllegalAccessException e) {
             throw new CommandLineException.ShouldNeverReachHereException("Should never happen",e);
         }
-
+        // validates the arguments marked with ValidatableArgumentCollection
+        validatableArgumentCollections.forEach(arg -> arg.validateArguments());
     }
 
     // Once all command line args have been processed, go through the argument definitions and
