@@ -8,6 +8,8 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.broadinstitute.barclay.argparser.*;
+import org.broadinstitute.barclay.utils.Utils;
+import org.commonmark.renderer.Renderer;
 
 import java.lang.reflect.*;
 import java.util.*;
@@ -34,6 +36,14 @@ public class DefaultDocWorkUnitHandler extends DocWorkUnitHandler {
     }
 
     /**
+     * @param doclet the HelpDoclet driving this documentation run. Can not be null.
+     * @param markdownRenderer renderer for rendering markdown formatted strings. Can not be null.
+     */
+    public DefaultDocWorkUnitHandler(final HelpDoclet doclet, final Renderer markdownRenderer) {
+        super(doclet, markdownRenderer);
+    }
+
+    /**
      * Return the template to be used for the particular workUnit. Must be present in the location
      * specified is the -settings-dir doclet parameter.
      *
@@ -55,14 +65,16 @@ public class DefaultDocWorkUnitHandler extends DocWorkUnitHandler {
      */
     @Override
     public String getSummaryForWorkUnit(final DocWorkUnit workUnit) {
-        String summary = workUnit.getDocumentedFeature().summary();
-        if (summary == null || summary.isEmpty()) {
+        // get the documented feature already rendered by the super method
+        String summary = super.getSummaryForWorkUnit(workUnit);
+        if (summary.isEmpty()) {
             final CommandLineProgramProperties commandLineProperties = workUnit.getCommandLineProperties();
             if (commandLineProperties != null) {
-                summary = commandLineProperties.oneLineSummary();
+                summary = renderMarkdown(commandLineProperties.oneLineSummary());
             }
-            if (summary == null || summary.isEmpty()) {
+            if (summary.isEmpty()) {
                 // If no summary was found from annotations, use the javadoc if there is any
+                // it is not rendered, because we do not expect Markdown in the Javadoc
                 summary = Arrays.stream(workUnit.getClassDoc().firstSentenceTags())
                         .map(tag -> tag.text())
                         .collect(Collectors.joining());
@@ -106,15 +118,15 @@ public class DefaultDocWorkUnitHandler extends DocWorkUnitHandler {
      */
     @Override
     public String getGroupSummaryForWorkUnit( final DocWorkUnit workUnit){
-        String groupSummary = workUnit.getDocumentedFeature().groupSummary();
+        // get the documented feature already rendered by the super method
+        String groupSummary = super.getGroupSummaryForWorkUnit(workUnit);
         final CommandLineProgramGroup clpGroup = workUnit.getCommandLineProgramGroup();
-        if (groupSummary == null || groupSummary.isEmpty()) {
+        if (groupSummary.isEmpty()) {
             if (clpGroup != null) {
-                groupSummary = clpGroup.getDescription();
+                groupSummary = renderMarkdown(clpGroup.getDescription());
             }
-            if (groupSummary == null || groupSummary.isEmpty()) {
+            if (groupSummary.isEmpty()) {
                 logger.warn("No group summary declared for: " + workUnit.getClazz().getCanonicalName());
-                groupSummary = "";
             }
         }
         return groupSummary;
@@ -226,10 +238,10 @@ public class DefaultDocWorkUnitHandler extends DocWorkUnitHandler {
     {
         workUnit.setProperty("name", workUnit.getName());
         workUnit.setProperty("group", workUnit.getGroupName());
-        workUnit.setProperty("summary", workUnit.getSummary());
+        workUnit.setProperty("summary", renderMarkdown(workUnit.getSummary()));
         workUnit.setProperty("beta", workUnit.getBetaFeature());
 
-        workUnit.setProperty("description", getDescription(workUnit));
+        workUnit.setProperty("description", renderMarkdown(getDescription(workUnit)));
 
         workUnit.setProperty("version", getDoclet().getBuildVersion());
         workUnit.setProperty("timestamp", getDoclet().getBuildTimeStamp());
@@ -442,7 +454,7 @@ public class DefaultDocWorkUnitHandler extends DocWorkUnitHandler {
             PositionalArguments posArgs = positionalField.getAnnotation(PositionalArguments.class);
             argBindings.put("kind", "positional");
             argBindings.put("name", NAME_FOR_POSITIONAL_ARGS);
-            argBindings.put("summary", posArgs.doc());
+            argBindings.put("summary", renderMarkdown(posArgs.doc()));
             argBindings.put("fulltext", posArgs.doc());
             argBindings.put("otherArgumentRequired", "NA");
             argBindings.put("synonyms", "NA");
@@ -721,7 +733,7 @@ public class DefaultDocWorkUnitHandler extends DocWorkUnitHandler {
         root.put("type", argumentTypeString(def.field.getGenericType()));
 
         // summary and fulltext
-        root.put("summary", def.doc != null ? def.doc : "");
+        root.put("summary", renderMarkdown(def.doc));
         root.put("fulltext", fieldDoc.commentText());
 
         // Does this argument interact with any others?

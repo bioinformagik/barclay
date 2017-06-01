@@ -1,6 +1,9 @@
 package org.broadinstitute.barclay.help;
 
 import org.broadinstitute.barclay.utils.Utils;
+import org.commonmark.parser.Parser;
+import org.commonmark.renderer.Renderer;
+import org.commonmark.renderer.html.HtmlRenderer;
 
 import java.io.*;
 import java.util.List;
@@ -11,14 +14,33 @@ import java.util.Map;
  * used for each documented feature, and populates the template property map for that template.
  */
 public abstract class DocWorkUnitHandler {
+    /**
+     * Default Markdown to HTML renderer.
+     */
+    // TODO: add extensions to default renderer?
+    protected static final Renderer DEFAULT_RENDERER = HtmlRenderer.builder().build();
+
     private final HelpDoclet doclet;
+    private final Renderer markdownRenderer;
+
+    // default parser for Markdown formatted documentation
+    // TODO: allow customization of Markdown parser
+    private Parser markdownParser = Parser.builder().build();
 
     /**
      * @param doclet the HelpDoclet driving this documentation run. Can not be null.
      */
     public DocWorkUnitHandler(final HelpDoclet doclet) {
-        Utils.nonNull("Doclet cannot be null");
-        this.doclet = doclet;
+        this(doclet, DEFAULT_RENDERER);
+    }
+
+    /**
+     * @param doclet the HelpDoclet driving this documentation run. Can not be null.
+     * @param markdownRenderer renderer for rendering markdown formatted strings. Can not be null.
+     */
+    public DocWorkUnitHandler(final HelpDoclet doclet, final Renderer markdownRenderer) {
+       this.doclet = Utils.nonNull(doclet, "Doclet cannot be null");
+       this.markdownRenderer = Utils.nonNull(markdownRenderer, "Renderer cannot be null");
     }
 
     /**
@@ -26,6 +48,16 @@ public abstract class DocWorkUnitHandler {
      */
     public HelpDoclet getDoclet() {
         return doclet;
+    }
+
+    /**
+     * @return rendered markdown string for documentation; empty String if the {@code markdownString} is null or empty.
+     */
+    public final String renderMarkdown(final String markdownString) {
+        if (markdownString == null || markdownString.isEmpty()) {
+            return "";
+        }
+        return markdownRenderer.render(markdownParser.parse(markdownString));
     }
 
     /**
@@ -57,12 +89,12 @@ public abstract class DocWorkUnitHandler {
 
     /**
      * Apply any fallback rules to determine the summary line that should be used for the work unit.
-     * Default implementation uses the value from the DocumentedFeature annotation.
+     * Default implementation uses the value from the DocumentedFeature annotation, rendered with {@link #renderMarkdown(String)}.
      * @param workUnit
      * @return Summary for this work unit.
      */
     public String getSummaryForWorkUnit(final DocWorkUnit workUnit) {
-        return workUnit.getDocumentedFeature().summary();
+        return renderMarkdown(workUnit.getDocumentedFeature().summary());
     }
 
     /**
@@ -77,12 +109,12 @@ public abstract class DocWorkUnitHandler {
 
     /**
      * Apply any fallback rules to determine the group summary line that should be used for the work unit.
-     * Default implementation uses the value from the DocumentedFeature annotation.
+     * Default implementation uses the value from the DocumentedFeature annotation, rendered with {@link #renderMarkdown(String)}.
      * @param workUnit
      * @return Group summary to be used for this work unit.
      */
     public String getGroupSummaryForWorkUnit(final DocWorkUnit workUnit) {
-        return workUnit.getDocumentedFeature().groupSummary();
+        return renderMarkdown(workUnit.getDocumentedFeature().groupSummary());
     }
 
 }
