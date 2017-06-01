@@ -27,6 +27,19 @@
         		<hr>
         		<hr>
         		<hr>
+						<li><a data-toggle="collapse" data-parent="#sidenav" href="#markdown">markdown</a>
+							<div id="markdown"
+								<?php echo ($group == 'markdown')? 'class="accordion-body collapse in"'.chr(62) : 'class="accordion-body collapse"'.chr(62);?>
+								<ul>
+											<li>
+												<a href="org_broadinstitute_barclay_help_ClpWithMarkdownDocs.html">ClpWithMarkdownDocs</a>
+											</li>
+											<li>
+												<a href="org_broadinstitute_barclay_help_MarkdownDocumentedFeature.html">MarkdownDocumentedFeature</a>
+											</li>
+								</ul>
+							</div>
+						</li>
 						<li><a data-toggle="collapse" data-parent="#sidenav" href="#Testextradocsgroupname">Test extra docs group name</a>
 							<div id="Testextradocsgroupname"
 								<?php echo ($group == 'Test extra docs group name')? 'class="accordion-body collapse in"'.chr(62) : 'class="accordion-body collapse"'.chr(62);?>
@@ -58,20 +71,18 @@
 
 			<h1>TestArgumentContainer **BETA**</h1>
 
-		<p class="lead">Argument container class for testing documentation generation.</p>
+		<p class="lead"><p>Argument container class for testing documentation generation.</p>
+</p>
 
 			<h3>Category
 				<small> Test feature group name</small>
 			</h3>
 		<hr>
 		<h2>Overview</h2>
-		Argument container class for testing documentation generation. Contains an argument
- for each @Argument, @ArgumentCollection, and @DocumentedFeature property that should
- be tested.
-
- Test custom tag:
- 
-
+		<p>Argument container class for testing documentation generation. Contains an argument
+for each @Argument, @ArgumentCollection, and @DocumentedFeature property that should
+be tested.</p>
+<p>Test custom tag:</p>
  <p>
  The purpose of this paragraph is to test embedded html formatting.
  <ol>
@@ -79,6 +90,7 @@
      <li>This is point number 2</li>
  </ol>
  </p>
+
 
 				<hr>
 				<h2>Additional Information</h2>
@@ -116,7 +128,8 @@
 					</td>
 					<!--<td>List[File]</td> -->
 					<td>NA</td>
-					<td>Positional arguments, min = 2, max = 2</td>
+					<td><p>Positional arguments, min = 2, max = 2</p>
+</td>
 				</tr>
 			<tr>
 				<th colspan="4" id="row-divider">Required Arguments</th>
@@ -126,7 +139,8 @@
 					</td>
 					<!--<td>TestEnum</td> -->
 					<td>null</td>
-					<td>Required Clp enum</td>
+					<td><p>Required Clp enum</p>
+</td>
 				</tr>
 				<tr>
 					<td><a href="#--requiredFileList">--requiredFileList</a><br />
@@ -134,7 +148,8 @@
 					</td>
 					<!--<td>List[File]</td> -->
 					<td>[]</td>
-					<td>Required file list</td>
+					<td><p>Required file list</p>
+</td>
 				</tr>
 				<tr>
 					<td><a href="#--requiredInputFilesFromArgCollection">--requiredInputFilesFromArgCollection</a><br />
@@ -142,14 +157,16 @@
 					</td>
 					<!--<td>List[File]</td> -->
 					<td>[]</td>
-					<td>Required input files from argument collection</td>
+					<td><p>Required input files from argument collection</p>
+</td>
 				</tr>
 				<tr>
 					<td><a href="#--requiredStringInputFromArgCollection">--requiredStringInputFromArgCollection</a><br />
 					</td>
 					<!--<td>String</td> -->
 					<td>null</td>
-					<td>Required string input from argument collection</td>
+					<td><p>Required string input from argument collection</p>
+</td>
 				</tr>
 				<tr>
 					<td><a href="#--requiredStringList">--requiredStringList</a><br />
@@ -157,7 +174,8 @@
 					</td>
 					<!--<td>List[String]</td> -->
 					<td>[]</td>
-					<td>A required list of strings</td>
+					<td><p>A required list of strings</p>
+</td>
 				</tr>
 				<tr>
 					<td><a href="#--usesFieldNameForArgName">--usesFieldNameForArgName</a><br />
@@ -165,7 +183,8 @@
 					</td>
 					<!--<td>String</td> -->
 					<td>null</td>
-					<td>Use field name if no name in annotation.</td>
+					<td><p>Use field name if no name in annotation.</p>
+</td>
 				</tr>
 			<tr>
 				<th colspan="4" id="row-divider">Optional Tool Arguments</th>
@@ -175,28 +194,32 @@
 					</td>
 					<!--<td>List[File]</td> -->
 					<td>[]</td>
-					<td>Undocumented option</td>
+					<td><p>Undocumented option</p>
+</td>
 				</tr>
 				<tr>
 					<td><a href="#--mutexTargetField1">--mutexTargetField1</a><br />
 					</td>
 					<!--<td>List[File]</td> -->
 					<td>[]</td>
-					<td>SAM/BAM/CRAM file(s) with alignment data from the first read of a pair.</td>
+					<td><p>SAM/BAM/CRAM file(s) with alignment data from the first read of a pair.</p>
+</td>
 				</tr>
 				<tr>
 					<td><a href="#--mutexTargetField2">--mutexTargetField2</a><br />
 					</td>
 					<!--<td>List[File]</td> -->
 					<td>[]</td>
-					<td>SAM/BAM file(s) with alignment data from the second read of a pair.</td>
+					<td><p>SAM/BAM file(s) with alignment data from the second read of a pair.</p>
+</td>
 				</tr>
 				<tr>
 					<td><a href="#--optionalClpEnum">--optionalClpEnum</a><br />
 					</td>
 					<!--<td>TestEnum</td> -->
 					<td>ENUM_VALUE_1</td>
-					<td>Optional Clp enum</td>
+					<td><p>Optional Clp enum</p>
+</td>
 				</tr>
 				<tr>
 					<td><a href="#--optionalDouble">--optionalDouble</a><br />
@@ -204,7 +227,8 @@
 					</td>
 					<!--<td>double</td> -->
 					<td>2.15</td>
-					<td>Optionals double with initial value 2.15</td>
+					<td><p>Optionals double with initial value 2.15</p>
+</td>
 				</tr>
 				<tr>
 					<td><a href="#--optionalDoubleList">--optionalDoubleList</a><br />
@@ -212,7 +236,8 @@
 					</td>
 					<!--<td>List[Double]</td> -->
 					<td>[100.0, 99.9, 99.0, 90.0]</td>
-					<td>optionalDoubleList with initial values: 100.0, 99.9, 99.0, 90.0</td>
+					<td><p>optionalDoubleList with initial values: 100.0, 99.9, 99.0, 90.0</p>
+</td>
 				</tr>
 				<tr>
 					<td><a href="#--optionalFileList">--optionalFileList</a><br />
@@ -220,7 +245,8 @@
 					</td>
 					<!--<td>List[File]</td> -->
 					<td>[]</td>
-					<td>Optional file list</td>
+					<td><p>Optional file list</p>
+</td>
 				</tr>
 				<tr>
 					<td><a href="#--optionalFlag">--optionalFlag</a><br />
@@ -228,21 +254,24 @@
 					</td>
 					<!--<td>boolean</td> -->
 					<td>false</td>
-					<td>Optional flag, defaults to false.</td>
+					<td><p>Optional flag, defaults to false.</p>
+</td>
 				</tr>
 				<tr>
 					<td><a href="#--optionalInputFilesFromArgCollection">--optionalInputFilesFromArgCollection</a><br />
 					</td>
 					<!--<td>List[File]</td> -->
 					<td>[]</td>
-					<td>Optional input files from argument collection</td>
+					<td><p>Optional input files from argument collection</p>
+</td>
 				</tr>
 				<tr>
 					<td><a href="#--optionalStringInputFromArgCollection">--optionalStringInputFromArgCollection</a><br />
 					</td>
 					<!--<td>String</td> -->
 					<td>null</td>
-					<td>Optional string input from argument collection</td>
+					<td><p>Optional string input from argument collection</p>
+</td>
 				</tr>
 				<tr>
 					<td><a href="#--optionalStringList">--optionalStringList</a><br />
@@ -250,7 +279,8 @@
 					</td>
 					<!--<td>List[String]</td> -->
 					<td>[]</td>
-					<td>An optional list of strings</td>
+					<td><p>An optional list of strings</p>
+</td>
 				</tr>
 				<tr>
 					<td><a href="#--testPlugin">--testPlugin</a><br />
@@ -258,7 +288,8 @@
 					</td>
 					<!--<td>List[String]</td> -->
 					<td>[]</td>
-					<td>Undocumented option</td>
+					<td><p>Undocumented option</p>
+</td>
 				</tr>
 			<tr>
 				<th colspan="4" id="row-divider">Advanced Arguments</th>
@@ -269,7 +300,8 @@
 					</td>
 					<!--<td>int</td> -->
 					<td>1</td>
-					<td>advancedOptionalInt with initial value 1</td>
+					<td><p>advancedOptionalInt with initial value 1</p>
+</td>
 				</tr>
 			<tr>
 				<th colspan="4" id="row-divider">Deprecated Arguments</th>
@@ -280,7 +312,8 @@
 					</td>
 					<!--<td>int</td> -->
 					<td>0</td>
-					<td>deprecated</td>
+					<td><p>deprecated</p>
+</td>
 				</tr>
 					</tbody>
 				</table>
@@ -292,7 +325,8 @@
 			 / <small>NA</small>
 		</h3>
 		<p class="args">
-			<b>Positional arguments, min = 2, max = 2</b><br />
+			<b><p>Positional arguments, min = 2, max = 2</p>
+</b><br />
 			Positional arguments, min = 2, max = 2
 		</p>
 		<p>
@@ -305,7 +339,8 @@
 			 / <small>-advancedOptInt</small>
 		</h3>
 		<p class="args">
-			<b>advancedOptionalInt with initial value 1</b><br />
+			<b><p>advancedOptionalInt with initial value 1</p>
+</b><br />
 			Advanced, Optional int
 		</p>
 		<p>
@@ -319,7 +354,8 @@
 			 / <small>-depStr</small>
 		</h3>
 		<p class="args">
-			<b>deprecated</b><br />
+			<b><p>deprecated</p>
+</b><br />
 			Deprecated string
 		</p>
 		<p>
@@ -333,7 +369,8 @@
 			 / <small>-mutexArg</small>
 		</h3>
 		<p class="args">
-			<b>Undocumented option</b><br />
+			<b><p>Undocumented option</p>
+</b><br />
 			Mutually exclusive args
 		</p>
 			<p><b>Exclusion:</b> This argument cannot be used at the same time as <code>READ1_ALIGNED_BAM, READ2_ALIGNED_BAM</code>.</p>
@@ -346,7 +383,8 @@
 			 / <small>-mutexTargetField1</small>
 		</h3>
 		<p class="args">
-			<b>SAM/BAM/CRAM file(s) with alignment data from the first read of a pair.</b><br />
+			<b><p>SAM/BAM/CRAM file(s) with alignment data from the first read of a pair.</p>
+</b><br />
 			
 		</p>
 			<p><b>Exclusion:</b> This argument cannot be used at the same time as <code>mutexSourceField</code>.</p>
@@ -359,7 +397,8 @@
 			 / <small>-mutexTargetField2</small>
 		</h3>
 		<p class="args">
-			<b>SAM/BAM file(s) with alignment data from the second read of a pair.</b><br />
+			<b><p>SAM/BAM file(s) with alignment data from the second read of a pair.</p>
+</b><br />
 			
 		</p>
 			<p><b>Exclusion:</b> This argument cannot be used at the same time as <code>mutexSourceField</code>.</p>
@@ -372,7 +411,8 @@
 			 / <small>-optionalClpEnum</small>
 		</h3>
 		<p class="args">
-			<b>Optional Clp enum</b><br />
+			<b><p>Optional Clp enum</p>
+</b><br />
 			
 		</p>
 			<p>
@@ -393,7 +433,8 @@
 			 / <small>-optDouble</small>
 		</h3>
 		<p class="args">
-			<b>Optionals double with initial value 2.15</b><br />
+			<b><p>Optionals double with initial value 2.15</p>
+</b><br />
 			Required double
 		</p>
 		<p>
@@ -407,7 +448,8 @@
 			 / <small>-optDoubleList</small>
 		</h3>
 		<p class="args">
-			<b>optionalDoubleList with initial values: 100.0, 99.9, 99.0, 90.0</b><br />
+			<b><p>optionalDoubleList with initial values: 100.0, 99.9, 99.0, 90.0</p>
+</b><br />
 			Optional double list.
 		</p>
 		<p>
@@ -419,7 +461,8 @@
 			 / <small>-optFilList</small>
 		</h3>
 		<p class="args">
-			<b>Optional file list</b><br />
+			<b><p>Optional file list</p>
+</b><br />
 			Optional file list.
 		</p>
 		<p>
@@ -431,7 +474,8 @@
 			 / <small>-optFlag</small>
 		</h3>
 		<p class="args">
-			<b>Optional flag, defaults to false.</b><br />
+			<b><p>Optional flag, defaults to false.</p>
+</b><br />
 			Optional flag.
 		</p>
 		<p>
@@ -443,7 +487,8 @@
 			 / <small>-optionalInputFilesFromArgCollection</small>
 		</h3>
 		<p class="args">
-			<b>Optional input files from argument collection</b><br />
+			<b><p>Optional input files from argument collection</p>
+</b><br />
 			
 		</p>
 		<p>
@@ -455,7 +500,8 @@
 			 / <small>-optionalStringInputFromArgCollection</small>
 		</h3>
 		<p class="args">
-			<b>Optional string input from argument collection</b><br />
+			<b><p>Optional string input from argument collection</p>
+</b><br />
 			
 		</p>
 		<p>
@@ -467,7 +513,8 @@
 			 / <small>-optStrList</small>
 		</h3>
 		<p class="args">
-			<b>An optional list of strings</b><br />
+			<b><p>An optional list of strings</p>
+</b><br />
 			Optional string list.
 		</p>
 		<p>
@@ -479,7 +526,8 @@
 			 / <small>-requiredClpEnum</small>
 		</h3>
 		<p class="args">
-			<b>Required Clp enum</b><br />
+			<b><p>Required Clp enum</p>
+</b><br />
 			
 		</p>
 			<p>
@@ -501,7 +549,8 @@
 			 / <small>-reqFilList</small>
 		</h3>
 		<p class="args">
-			<b>Required file list</b><br />
+			<b><p>Required file list</p>
+</b><br />
 			Required file list.
 		</p>
 		<p>
@@ -514,7 +563,8 @@
 			 / <small>-rRequiredInputFilesFromArgCollection</small>
 		</h3>
 		<p class="args">
-			<b>Required input files from argument collection</b><br />
+			<b><p>Required input files from argument collection</p>
+</b><br />
 			
 		</p>
 		<p>
@@ -527,7 +577,8 @@
 			 / <small>-requiredStringInputFromArgCollection</small>
 		</h3>
 		<p class="args">
-			<b>Required string input from argument collection</b><br />
+			<b><p>Required string input from argument collection</p>
+</b><br />
 			
 		</p>
 		<p>
@@ -540,7 +591,8 @@
 			 / <small>-reqStrList</small>
 		</h3>
 		<p class="args">
-			<b>A required list of strings</b><br />
+			<b><p>A required list of strings</p>
+</b><br />
 			Required string list.
 		</p>
 		<p>
@@ -553,7 +605,8 @@
 			 / <small>-</small>
 		</h3>
 		<p class="args">
-			<b>Undocumented option</b><br />
+			<b><p>Undocumented option</p>
+</b><br />
 			
 		</p>
 		<p>
@@ -565,7 +618,8 @@
 			 / <small>-</small>
 		</h3>
 		<p class="args">
-			<b>Use field name if no name in annotation.</b><br />
+			<b><p>Use field name if no name in annotation.</p>
+</b><br />
 			
 		</p>
 		<p>

@@ -1,8 +1,8 @@
 {
-  "summary": "Argument container class for testing documentation generation.",
+  "summary": "\u003cp\u003eArgument container class for testing documentation generation.\u003c/p\u003e\n",
   "arguments": [
     {
-      "summary": "Positional arguments, min \u003d 2, max \u003d 2",
+      "summary": "\u003cp\u003ePositional arguments, min \u003d 2, max \u003d 2\u003c/p\u003e\n",
       "name": "[NA - Positional]",
       "synonyms": "NA",
       "type": "List[File]",
@@ -17,7 +17,7 @@
       "options": []
     },
     {
-      "summary": "advancedOptionalInt with initial value 1",
+      "summary": "\u003cp\u003eadvancedOptionalInt with initial value 1\u003c/p\u003e\n",
       "name": "--advancedOptionalInt",
       "synonyms": "-advancedOptInt",
       "type": "int",
@@ -32,7 +32,7 @@
       "options": []
     },
     {
-      "summary": "deprecated",
+      "summary": "\u003cp\u003edeprecated\u003c/p\u003e\n",
       "name": "--deprecatedString",
       "synonyms": "-depStr",
       "type": "int",
@@ -47,7 +47,7 @@
       "options": []
     },
     {
-      "summary": "Undocumented option",
+      "summary": "\u003cp\u003eUndocumented option\u003c/p\u003e\n",
       "name": "--mutexArg",
       "synonyms": "-mutexArg",
       "type": "List[File]",
@@ -62,7 +62,7 @@
       "options": []
     },
     {
-      "summary": "SAM/BAM/CRAM file(s) with alignment data from the first read of a pair.",
+      "summary": "\u003cp\u003eSAM/BAM/CRAM file(s) with alignment data from the first read of a pair.\u003c/p\u003e\n",
       "name": "--mutexTargetField1",
       "synonyms": "-mutexTargetField1",
       "type": "List[File]",
@@ -77,7 +77,7 @@
       "options": []
     },
     {
-      "summary": "SAM/BAM file(s) with alignment data from the second read of a pair.",
+      "summary": "\u003cp\u003eSAM/BAM file(s) with alignment data from the second read of a pair.\u003c/p\u003e\n",
       "name": "--mutexTargetField2",
       "synonyms": "-mutexTargetField2",
       "type": "List[File]",
@@ -92,7 +92,7 @@
       "options": []
     },
     {
-      "summary": "Optional Clp enum",
+      "summary": "\u003cp\u003eOptional Clp enum\u003c/p\u003e\n",
       "name": "--optionalClpEnum",
       "synonyms": "-optionalClpEnum",
       "type": "TestEnum",
@@ -116,7 +116,7 @@
       ]
     },
     {
-      "summary": "Optionals double with initial value 2.15",
+      "summary": "\u003cp\u003eOptionals double with initial value 2.15\u003c/p\u003e\n",
       "name": "--optionalDouble",
       "synonyms": "-optDouble",
       "type": "double",
@@ -131,7 +131,7 @@
       "options": []
     },
     {
-      "summary": "optionalDoubleList with initial values: 100.0, 99.9, 99.0, 90.0",
+      "summary": "\u003cp\u003eoptionalDoubleList with initial values: 100.0, 99.9, 99.0, 90.0\u003c/p\u003e\n",
       "name": "--optionalDoubleList",
       "synonyms": "-optDoubleList",
       "type": "List[Double]",
@@ -146,7 +146,7 @@
       "options": []
     },
     {
-      "summary": "Optional file list",
+      "summary": "\u003cp\u003eOptional file list\u003c/p\u003e\n",
       "name": "--optionalFileList",
       "synonyms": "-optFilList",
       "type": "List[File]",
@@ -161,7 +161,7 @@
       "options": []
     },
     {
-      "summary": "Optional flag, defaults to false.",
+      "summary": "\u003cp\u003eOptional flag, defaults to false.\u003c/p\u003e\n",
       "name": "--optionalFlag",
       "synonyms": "-optFlag",
       "type": "boolean",
@@ -176,7 +176,7 @@
       "options": []
     },
     {
-      "summary": "Optional input files from argument collection",
+      "summary": "\u003cp\u003eOptional input files from argument collection\u003c/p\u003e\n",
       "name": "--optionalInputFilesFromArgCollection",
       "synonyms": "-optionalInputFilesFromArgCollection",
       "type": "List[File]",
@@ -191,7 +191,7 @@
       "options": []
     },
     {
-      "summary": "Optional string input from argument collection",
+      "summary": "\u003cp\u003eOptional string input from argument collection\u003c/p\u003e\n",
       "name": "--optionalStringInputFromArgCollection",
       "synonyms": "-optionalStringInputFromArgCollection",
       "type": "String",
@@ -206,7 +206,7 @@
       "options": []
     },
     {
-      "summary": "An optional list of strings",
+      "summary": "\u003cp\u003eAn optional list of strings\u003c/p\u003e\n",
       "name": "--optionalStringList",
       "synonyms": "-optStrList",
       "type": "List[String]",
@@ -221,7 +221,7 @@
       "options": []
     },
     {
-      "summary": "Required Clp enum",
+      "summary": "\u003cp\u003eRequired Clp enum\u003c/p\u003e\n",
       "name": "--requiredClpEnum",
       "synonyms": "-requiredClpEnum",
       "type": "TestEnum",
@@ -245,7 +245,7 @@
       ]
     },
     {
-      "summary": "Required file list",
+      "summary": "\u003cp\u003eRequired file list\u003c/p\u003e\n",
       "name": "--requiredFileList",
       "synonyms": "-reqFilList",
       "type": "List[File]",
@@ -260,7 +260,7 @@
       "options": []
     },
     {
-      "summary": "Required input files from argument collection",
+      "summary": "\u003cp\u003eRequired input files from argument collection\u003c/p\u003e\n",
       "name": "--requiredInputFilesFromArgCollection",
       "synonyms": "-rRequiredInputFilesFromArgCollection",
       "type": "List[File]",
@@ -275,7 +275,7 @@
       "options": []
     },
     {
-      "summary": "Required string input from argument collection",
+      "summary": "\u003cp\u003eRequired string input from argument collection\u003c/p\u003e\n",
       "name": "--requiredStringInputFromArgCollection",
       "synonyms": "-requiredStringInputFromArgCollection",
       "type": "String",
@@ -290,7 +290,7 @@
       "options": []
     },
     {
-      "summary": "A required list of strings",
+      "summary": "\u003cp\u003eA required list of strings\u003c/p\u003e\n",
       "name": "--requiredStringList",
       "synonyms": "-reqStrList",
       "type": "List[String]",
@@ -305,7 +305,7 @@
       "options": []
     },
     {
-      "summary": "Undocumented option",
+      "summary": "\u003cp\u003eUndocumented option\u003c/p\u003e\n",
       "name": "--testPlugin",
       "synonyms": "-",
       "type": "List[String]",
@@ -320,7 +320,7 @@
       "options": []
     },
     {
-      "summary": "Use field name if no name in annotation.",
+      "summary": "\u003cp\u003eUse field name if no name in annotation.\u003c/p\u003e\n",
       "name": "--usesFieldNameForArgName",
       "synonyms": "-",
       "type": "String",
@@ -335,7 +335,7 @@
       "options": []
     }
   ],
-  "description": "Argument container class for testing documentation generation. Contains an argument\n for each @Argument, @ArgumentCollection, and @DocumentedFeature property that should\n be tested.\n\n Test custom tag:\n \n\n \u003cp\u003e\n The purpose of this paragraph is to test embedded html formatting.\n \u003col\u003e\n     \u003cli\u003eThis is point number 1\u003c/li\u003e\n     \u003cli\u003eThis is point number 2\u003c/li\u003e\n \u003c/ol\u003e\n \u003c/p\u003e",
+  "description": "\u003cp\u003eArgument container class for testing documentation generation. Contains an argument\nfor each @Argument, @ArgumentCollection, and @DocumentedFeature property that should\nbe tested.\u003c/p\u003e\n\u003cp\u003eTest custom tag:\u003c/p\u003e\n \u003cp\u003e\n The purpose of this paragraph is to test embedded html formatting.\n \u003col\u003e\n     \u003cli\u003eThis is point number 1\u003c/li\u003e\n     \u003cli\u003eThis is point number 2\u003c/li\u003e\n \u003c/ol\u003e\n \u003c/p\u003e\n",
   "name": "TestArgumentContainer",
   "group": "Test feature group name"
 }
