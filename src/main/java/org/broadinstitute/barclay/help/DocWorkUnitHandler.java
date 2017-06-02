@@ -1,5 +1,6 @@
 package org.broadinstitute.barclay.help;
 
+import org.apache.commons.lang3.StringUtils;
 import org.broadinstitute.barclay.utils.Utils;
 import org.commonmark.parser.Parser;
 import org.commonmark.renderer.Renderer;
@@ -57,7 +58,15 @@ public abstract class DocWorkUnitHandler {
         if (markdownString == null || markdownString.isEmpty()) {
             return "";
         }
-        return markdownRenderer.render(markdownParser.parse(markdownString));
+        // render the String and remove the end of line added by the parser/renderer
+        final String renderedString = StringUtils.stripEnd(markdownRenderer.render(markdownParser.parse(markdownString)), "\n");
+        // Markdown parser/renderer adds always a <p></p> around the parsed String even if it is a single line
+        // but we do not want this in single line documentation
+        // TODO: commonmark should have a way to remove this behaviour from the parser/renderer
+        if (!renderedString.contains("\n")) {
+            return StringUtils.removePattern(renderedString, "^<p>|</p>$");
+        }
+        return renderedString;
     }
 
     /**
