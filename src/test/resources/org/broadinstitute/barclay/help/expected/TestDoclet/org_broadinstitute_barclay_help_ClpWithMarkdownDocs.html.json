@@ -62,7 +62,7 @@
       "options": []
     }
   ],
-  "description": "",
+  "description": "\u003cp\u003eDocumentation of this tool is written in Markdown and rendered as HTML.\u003c/p\u003e\n\u003ch2\u003eJavadoc formatted with Markdown\u003c/h2\u003e\n\u003cp\u003eThe purpose of this paragraph is to test embedded \u003ca href\u003d\"https://daringfireball.net/projects/markdown/\"\u003eMarkdown\u003c/a\u003e formatting:\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003eFirst element of list (\u003cstrong\u003ebold\u003c/strong\u003e)\u003c/li\u003e\n\u003cli\u003eSecond element of list (\u003cem\u003eitalic\u003c/em\u003e)\u003c/li\u003e\n\u003c/ul\u003e\n",
   "name": "ClpWithMarkdownDocs",
   "group": "markdown"
 }

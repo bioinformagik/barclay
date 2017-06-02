@@ -76,7 +76,8 @@ public class DefaultDocWorkUnitHandler extends DocWorkUnitHandler {
                 // If no summary was found from annotations, use the javadoc if there is any
                 // it is not rendered, because we do not expect Markdown in the Javadoc
                 summary = Arrays.stream(workUnit.getClassDoc().firstSentenceTags())
-                        .map(tag -> tag.text())
+                        // render possibly markdown formatted javadoc
+                        .map(tag -> renderMarkdown(tag.text()))
                         .collect(Collectors.joining());
             }
         }
@@ -142,7 +143,8 @@ public class DefaultDocWorkUnitHandler extends DocWorkUnitHandler {
     protected String getDescription(final DocWorkUnit currentWorkUnit) {
         return Arrays.stream(currentWorkUnit.getClassDoc().inlineTags())
                 .filter(t -> getTagPrefix() == null || !t.name().startsWith(getTagPrefix()))
-                .map(t -> t.text())
+                // render possibly markdown formatted javadoc
+                .map(t -> renderMarkdown(t.text()))
                 .collect(Collectors.joining());
     }
 
@@ -257,6 +259,7 @@ public class DefaultDocWorkUnitHandler extends DocWorkUnitHandler {
         final String tagFilterPrefix = getTagPrefix();
         Arrays.stream(currentWorkUnit.getClassDoc().inlineTags())
                 .filter(t -> t.name().startsWith(tagFilterPrefix))
+                // TODO: should we render also text in custom tags?
                 .forEach(t -> currentWorkUnit.setProperty(t.name().substring(tagFilterPrefix.length()), t.text()));
     }
 
@@ -455,7 +458,7 @@ public class DefaultDocWorkUnitHandler extends DocWorkUnitHandler {
             argBindings.put("kind", "positional");
             argBindings.put("name", NAME_FOR_POSITIONAL_ARGS);
             argBindings.put("summary", renderMarkdown(posArgs.doc()));
-            argBindings.put("fulltext", posArgs.doc());
+            argBindings.put("fulltext", renderMarkdown(posArgs.doc()));
             argBindings.put("otherArgumentRequired", "NA");
             argBindings.put("synonyms", "NA");
             argBindings.put("exclusiveOf", "NA");
@@ -734,7 +737,7 @@ public class DefaultDocWorkUnitHandler extends DocWorkUnitHandler {
 
         // summary and fulltext
         root.put("summary", renderMarkdown(def.doc));
-        root.put("fulltext", fieldDoc.commentText());
+        root.put("fulltext", renderMarkdown(fieldDoc.commentText()));
 
         // Does this argument interact with any others?
         if (def.isControlledByPlugin()) {
@@ -791,7 +794,7 @@ public class DefaultDocWorkUnitHandler extends DocWorkUnitHandler {
                             static final long serialVersionUID = 0L;
                             {
                                 put("name", fieldDoc.name());
-                                put("summary", fieldDoc.commentText());
+                                put("summary", renderMarkdown(fieldDoc.commentText()));
                             }
                         }
                 );

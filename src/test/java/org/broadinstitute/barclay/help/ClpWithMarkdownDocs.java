@@ -32,6 +32,13 @@ import org.broadinstitute.barclay.argparser.TestProgramGroup;
 /**
  * Documentation of this tool is written in Markdown and rendered as HTML.
  *
+ * ## Javadoc formatted with Markdown
+ *
+ * The purpose of this paragraph is to test embedded [Markdown](https://daringfireball.net/projects/markdown/) formatting:
+ *
+ * - First element of list (**bold**)
+ * - Second element of list (_italic_)
+ *
  * @author Daniel Gomez-Sanchez (magicDGS)
  */
 @CommandLineProgramProperties(
